@@ -23,6 +23,20 @@
       Two Time: {{oneTime}}<br />
 
       <button ng-click="upCounter();">Up Counter</button>
+
+      <ul>
+        <li ng-repeat="item in list1">
+          {{ item }}
+        </li>
+      </ul>
+
+      <ul>
+        <li ng-repeat="item in list2">
+          Index: {{$index}} 
+          {{item.number}} is {{item.name}}
+        </li>
+      </ul>
+
     </div>
   </div>
 </body>

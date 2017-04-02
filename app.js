@@ -12,7 +12,14 @@
       input = input || "";
       return input.replace(from, to);
     }
-  }
+  };
+
+  var list1 = ['One', 'Two', 'Three'];
+  var list2 = [
+    {number: 1, name: 'One'},
+    {number: 2, name: 'Two'},
+    {number: 3, name: 'Three'}
+  ];
 
   angular.module('myApp', [])
   .controller('MyController', MyController)
@@ -25,6 +32,9 @@
     $scope.cost = "1000";
     $scope.counter = 0;
     $scope.oneTime = "One";
+    $scope.list1 = list1;
+    $scope.list2 = list2;
+
 
     $scope.upper = function () {
       $scope.name = customFilter($scope.name);
