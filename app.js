@@ -23,12 +23,18 @@
 
   angular.module('myApp', [])
   .controller('MyController', MyController)
+  .controller('ChildController', ChildController)
   .filter('custom', CustomFilterFactory)
   .filter('replace', ReplaceFilterFactory);
+
+  function ChildController() {
+    this.name = "foo";
+  }
 
   MyController.$inject = ['$scope', '$filter', 'customFilter'];
   function MyController ($scope, $filter, customFilter) {
     $scope.name = "Test";
+    this.name = $scope.name;
     $scope.cost = "1000";
     $scope.counter = 0;
     $scope.oneTime = "One";
