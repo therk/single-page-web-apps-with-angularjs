@@ -1,17 +1,59 @@
 (function() {
   'use strict';
 
-  angular.module('myApp', [])
-  .controller('MyController', MyController);
+  function CustomFilterFactory() {
+    return function (input) {
+      return input.toUpperCase() + "!";
+    }
+  };
 
-  function MyController ($scope, $filter, $injector) {
+  function ReplaceFilterFactory() {
+    return function (input, from, to) {
+      input = input || "";
+      return input.replace(from, to);
+    }
+  }
+
+  angular.module('myApp', [])
+  .controller('MyController', MyController)
+  .filter('custom', CustomFilterFactory)
+  .filter('replace', ReplaceFilterFactory);
+
+  MyController.$inject = ['$scope', '$filter', 'customFilter'];
+  function MyController ($scope, $filter, customFilter) {
     $scope.name = "Test";
+    $scope.cost = "1000";
+    $scope.counter = 0;
+    $scope.oneTime = "One";
 
     $scope.upper = function () {
-      var upCase = $filter('uppercase');
-      $scope.name = upCase($scope.name);
+      $scope.name = customFilter($scope.name);
     };
 
-    console.log($injector);
+    $scope.checkClick = function () {
+      console.log("# of watchers: ", $scope.$$watchersCount);
+    }
+
+    $scope.upCounter = function() {
+      setTimeout(function() {
+        $scope.$apply(function() {
+          $scope.counter++;
+          $scope.oneTime = "Two";
+          console.log("Counter incrimented");
+        });
+
+        //$scope.$digest(); triggers digest loop
+      }, 2000);
+
+    };
+
+    $scope.$watch('counter', function (newValue, oldValue){
+      console.log("counter old value:", oldValue);
+      console.log("counter new value:", newValue);
+    });
+
+    $scope.$watch(function() {
+      console.log("Digest Loop Fired");
+    });
   }
 })();
