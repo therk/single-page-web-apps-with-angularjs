@@ -6,9 +6,27 @@
   <title>Test</title>
 </head>
 <body>
-  <h1>Test</h1>
   <div ng-controller="MyController">
     <div>
+      New Item:
+      <input type="text" ng-model="newItemNumber" placeholder="Item number" />
+      <input type="text" ng-model="newItemName" placeholder="Item name" />
+      <button ng-click="addToList();">Add</button>
+      <br />
+      Search Name: <input type="text" ng-model="search" />
+      <ul>
+        <li ng-repeat="item in list1 | filter: search">
+          {{ item }}
+        </li>
+      </ul>
+
+      <ul>
+        <li ng-repeat="item in list2">
+          Index: {{$index}}
+          {{item.number}} is {{item.name}}
+        </li>
+      </ul>
+      <br />
       Your name:
       {{name | replace : "T": "F"}} <br />
       <input type="text" ng-model="name"
@@ -23,19 +41,10 @@
       Two Time: {{oneTime}}<br />
 
       <button ng-click="upCounter();">Up Counter</button>
+<br />
+      <input type="text" ng-model="list2[0].number" />
+      <br />
 
-      <ul>
-        <li ng-repeat="item in list1">
-          {{ item }}
-        </li>
-      </ul>
-
-      <ul>
-        <li ng-repeat="item in list2">
-          Index: {{$index}} 
-          {{item.number}} is {{item.name}}
-        </li>
-      </ul>
 
     </div>
   </div>

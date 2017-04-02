@@ -35,6 +35,13 @@
     $scope.list1 = list1;
     $scope.list2 = list2;
 
+    $scope.addToList = function() {
+      var newItem = {
+        number: $scope.newItemNumber,
+        name: $scope.newItemName
+      }
+      $scope.list2.push(newItem);
+    }
 
     $scope.upper = function () {
       $scope.name = customFilter($scope.name);
