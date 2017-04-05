@@ -24,11 +24,39 @@
   angular.module('myApp', [])
   .controller('MyController', MyController)
   .controller('ChildController', ChildController)
+  .controller('ListAddController', ListAddController)
+  .controller('ListShowController', ListShowController)
+  .service('ListService', ListService)
   .filter('custom', CustomFilterFactory)
   .filter('replace', ReplaceFilterFactory);
 
   function ChildController() {
     this.name = "foo";
+  }
+
+  function ListService() {
+      var items = [];
+
+      this.addItem = function (name, quantity) {
+        items.push({name: name, quantity: quantity});
+      }
+
+      this.getItems = function() {
+        return items;
+      }
+
+  }
+
+  ListAddController.$inject = ['ListService'];
+  function ListAddController(ListService) {
+    this.addItem = function() {
+      ListService.addItem(this.itemName, this.itemQuantity);
+    }
+  }
+
+  ListShowController.$inject = ['ListService'];
+  function ListShowController(ListService) {
+    this.items = ListService.getItems();
   }
 
   MyController.$inject = ['$scope', '$filter', 'customFilter'];

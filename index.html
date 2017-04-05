@@ -6,6 +6,18 @@
   <title>Test</title>
 </head>
 <body>
+  <div ng-controller="ListAddController as itemAdder">
+    <input type="text" ng-model="itemAdder.itemName" placeholder="item name" />
+    <input type="text" ng-model="itemAdder.itemQuantity" placeholder="quantity" />
+    <button ng-click="itemAdder.addItem();">Add Item</button>
+  </div>
+  <div ng-controller="ListShowController as showList">
+    <ol>
+      <li ng-repeat="item in showList.items">
+        {{ item.quantity }} of {{item.name }}
+      </li>
+    </ol>
+  </div>
   <div ng-controller="MyController as parentCtrl1">
     <div>
       <div ng-controller="ChildController as childCtrl1">
