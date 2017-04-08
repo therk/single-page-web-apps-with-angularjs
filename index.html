@@ -10,6 +10,8 @@
     <input type="text" ng-model="itemAdder.itemName" placeholder="item name" />
     <input type="text" ng-model="itemAdder.itemQuantity" placeholder="quantity" />
     <button ng-click="itemAdder.addItem();">Add Item</button>
+    <br />
+    {{itemAdder.errorMessage}}
   </div>
   <div ng-controller="ListShowController as showList">
     <ol>
