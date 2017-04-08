@@ -45,6 +45,10 @@
         return items;
       }
 
+      this.deleteItem = function(index) {
+        items.splice(index, 1);
+      };
+
   }
 
   ListAddController.$inject = ['ListService'];
@@ -57,6 +61,10 @@
   ListShowController.$inject = ['ListService'];
   function ListShowController(ListService) {
     this.items = ListService.getItems();
+
+    this.deleteItem = function(index) {
+      ListService.deleteItem(index);
+    };
   }
 
   MyController.$inject = ['$scope', '$filter', 'customFilter'];
