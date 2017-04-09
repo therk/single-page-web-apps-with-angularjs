@@ -11,7 +11,9 @@
     <input type="text" ng-model="itemAdder.itemQuantity" placeholder="quantity" />
     <button ng-click="itemAdder.addItem();">Add Item</button>
     <br />
-    {{itemAdder.errorMessage}}
+    <div ng-if="itemAdder.errorMessage" class="error">
+      Error: {{itemAdder.errorMessage}}
+    </div>
   </div>
   <div ng-controller="ListShowController as showList">
     <ol>

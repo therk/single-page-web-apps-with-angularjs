@@ -36,11 +36,17 @@
         .controller('ListShowController', ListShowController)
         //.service('ListService', ListService)
         .provider('ListService', ListServiceProvider)
+        .config(Config)
         .filter('custom', CustomFilterFactory)
         .filter('replace', ReplaceFilterFactory);
 
     function ChildController() {
         this.name = "foo";
+    }
+
+    Config.$inject = ['ListServiceProvider'];
+    function Config(ListServiceProvider) {
+      ListServiceProvider.defaults.maxItems = 2;
     }
 
     function ListServiceProvider() {
