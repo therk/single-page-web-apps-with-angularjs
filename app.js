@@ -1,6 +1,72 @@
 (function() {
     'use strict';
 
+    angular.module('myApp', [])
+        .controller('MyController', MyController)
+        .controller('ChildController', ChildController)
+        .controller('ListAddController', ListAddController)
+        .controller('ListShowController', ListShowController)
+        .service('ValidationService', ValidationService)
+        .provider('ListService', ListServiceProvider)
+        .config(Config)
+        .filter('custom', CustomFilterFactory)
+        .filter('replace', ReplaceFilterFactory);
+
+    ValidationService.$inject = ['$q', '$timeout'];
+    function ValidationService($q, $timeout) {
+
+      var result = {
+        message: ""
+      };
+
+      this.checkName = function (name) {
+        var deffered = $q.defer();
+
+        $timeout(function() {
+          if (name.toLowerCase().indexOf('test') === -1) {
+            deffered.resolve(result);
+          }else {
+            result.message = "This is just a test!";
+            deffered.reject(result);
+          }
+        }, 3000);
+
+        return deffered.promise;
+      }
+
+      this.checkQuantity = function (quantity) {
+        var deffered = $q.defer();
+        $timeout(function () {
+          if (quantity > 5) {
+            result.message = "Too much!";
+            deffered.reject(result);
+          } else {
+            deffered.resolve(result);
+          }
+        }, 1000);
+        return deffered.promise;
+      }
+    }
+
+    ListAddController.$inject = ['$q', 'ListService', 'ValidationService'];
+    function ListAddController($q, ListService, ValidationService) {
+        var list = this;
+        list.addItem = function() {
+          var nameCheck =  ValidationService.checkName(list.itemName);
+          var quantityCheck = ValidationService.checkQuantity(list.itemQuantity);
+
+          $q.all([nameCheck, quantityCheck])
+            .then(function (result) {
+                console.log("Got Results");
+                ListService.addItem(list.itemName, list.itemQuantity);
+            })
+            .catch(function (result) {
+                console.log(result.message);
+                list.errorMessage = result.message;
+            });
+        }
+    }
+
     function CustomFilterFactory() {
         return function(input) {
             return input.toUpperCase() + "!";
@@ -29,24 +95,10 @@
         }
     ];
 
-    angular.module('myApp', [])
-        .controller('MyController', MyController)
-        .controller('ChildController', ChildController)
-        .controller('ListAddController', ListAddController)
-        .controller('ListShowController', ListShowController)
-        //.service('ListService', ListService)
-        .provider('ListService', ListServiceProvider)
-        .config(Config)
-        .filter('custom', CustomFilterFactory)
-        .filter('replace', ReplaceFilterFactory);
-
-    function ChildController() {
-        this.name = "foo";
-    }
-
     Config.$inject = ['ListServiceProvider'];
+
     function Config(ListServiceProvider) {
-      ListServiceProvider.defaults.maxItems = 2;
+        ListServiceProvider.defaults.maxItems = 2;
     }
 
     function ListServiceProvider() {
@@ -66,15 +118,15 @@
 
         this.addItem = function(name, quantity) {
 
-          if ((maxItems === undefined) ||
-        (maxItems !== undefined) && (items.length < maxItems)) {
-          items.push({
-              name: name,
-              quantity: quantity
-          });
-        } else {
-          throw new Error("Max items (" + maxItems + ") reached.");
-        }
+            if ((maxItems === undefined) ||
+                (maxItems !== undefined) && (items.length < maxItems)) {
+                items.push({
+                    name: name,
+                    quantity: quantity
+                });
+            } else {
+                throw new Error("Max items (" + maxItems + ") reached.");
+            }
 
         }
 
@@ -88,22 +140,7 @@
 
     }
 
-    ListAddController.$inject = ['ListService'];
-
-    function ListAddController(ListService) {
-        var list = this;
-        list.addItem = function() {
-            try {
-                ListService.addItem(this.itemName, this.itemQuantity);
-            } catch (error) {
-                console.log(error.message);
-                list.errorMessage = error.message;
-            }
-        }
-    }
-
     ListShowController.$inject = ['ListService'];
-
     function ListShowController(ListService) {
         this.items = ListService.getItems();
 
@@ -160,5 +197,9 @@
         $scope.$watch(function() {
             console.log("Digest Loop Fired");
         });
-    }
+    };
+
+    function ChildController() {
+
+    };
 })();
