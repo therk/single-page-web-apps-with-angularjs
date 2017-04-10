@@ -7,11 +7,21 @@
         .controller('ListAddController', ListAddController)
         .controller('ListShowController', ListShowController)
         .service('ValidationService', ValidationService)
+        .service('MenuService', MenuService)
         .provider('ListService', ListServiceProvider)
         .config(Config)
         .filter('custom', CustomFilterFactory)
         .filter('replace', ReplaceFilterFactory);
 
+    MenuService.$inject = ['$http'];
+    function MenuService($http) {
+      this.getMenuCategories = function () {
+        return $http({
+          method: "GET",
+          url: "http://davids-restaurant.herokuapp.com/categories.json"
+        });
+      }
+    }
     ValidationService.$inject = ['$q', '$timeout'];
     function ValidationService($q, $timeout) {
 
@@ -140,17 +150,27 @@
 
     }
 
-    ListShowController.$inject = ['ListService'];
-    function ListShowController(ListService) {
+    ListShowController.$inject = ['ListService', 'MenuService'];
+    function ListShowController(ListService, MenuService) {
+        var listShow = this;
         this.items = ListService.getItems();
 
         this.deleteItem = function(index) {
             ListService.deleteItem(index);
         };
+
+        MenuService.getMenuCategories()
+        .then(function (response) {
+          console.log(response);
+          listShow.menuItems = response.data;
+        })
+        .catch(function (error){
+          console.log(error);
+        });
+
     }
 
     MyController.$inject = ['$scope', '$filter', 'customFilter'];
-
     function MyController($scope, $filter, customFilter) {
         $scope.name = "Test";
         this.name = $scope.name;

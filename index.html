@@ -16,6 +16,13 @@
     </div>
   </div>
   <div ng-controller="ListShowController as showList">
+    Menu List
+    <ol>
+      <li ng-repeat="item in showList.menuItems">
+        ({{ item.short_name }}) {{ item.name }}
+      </li>
+    </ol>
+    <br />
     <ol>
       <li ng-repeat="item in showList.items">
         {{ item.quantity }} of {{item.name }}
