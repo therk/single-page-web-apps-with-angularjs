@@ -18,13 +18,18 @@
 
     function ListItem() {
       var ddo = {
+        restrict: "E",
         templateUrl: 'listItem.html'
       };
       return ddo;
     }
     function indexedNameItem() {
       return {
-        template: 'Index: {{item.number}} is {{item.name}}'
+        template: '{{prefix}}: {{item.number}} is {{item.name}}',
+        scope: {
+          item: '=item',
+          prefix: '@prefix'
+        }
       };
     }
     function listItemDescription() {
