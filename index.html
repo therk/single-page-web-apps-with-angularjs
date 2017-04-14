@@ -25,7 +25,7 @@
     <br />
     <ol>
       <li ng-repeat="item in showList.items">
-        {{ item.quantity }} of {{item.name }}
+        <list-item-description></list-item-description>
         <button ng-click="showList.deleteItem($index);">Delete</button>
       </li>
     </ol>
@@ -49,10 +49,7 @@
       </ul>
 
       <ul>
-        <li ng-repeat="item in list2">
-          Index: {{$index}}
-          {{item.number}} is {{item.name}}
-        </li>
+        <list-item ng-repeat="item in list2"></list-item>
       </ul>
       <br />
       Your name:

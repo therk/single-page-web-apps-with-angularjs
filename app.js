@@ -9,10 +9,29 @@
         .service('ValidationService', ValidationService)
         .service('MenuService', MenuService)
         .provider('ListService', ListServiceProvider)
+        .directive('listItemDescription', listItemDescription)
+        .directive('indexedNameItem', indexedNameItem)
+        .directive('listItem', ListItem)
         .config(Config)
         .filter('custom', CustomFilterFactory)
         .filter('replace', ReplaceFilterFactory);
 
+    function ListItem() {
+      var ddo = {
+        templateUrl: 'listItem.html'
+      };
+      return ddo;
+    }
+    function indexedNameItem() {
+      return {
+        template: 'Index: {{item.number}} is {{item.name}}'
+      };
+    }
+    function listItemDescription() {
+      return {
+        template: '{{ item.quantity }} of {{item.name }}'
+      }
+    }
     MenuService.$inject = ['$http'];
     function MenuService($http) {
       this.getMenuCategories = function () {
