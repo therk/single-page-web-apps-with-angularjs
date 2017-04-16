@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Narrow Down Your Menu Choice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-app="NarrowItDownApp">
+    <div ng-controller="NarrowItDownController as nidCtrl">
+
+        <div class="container">
+          <h1>Narrow Down Your Chinese Menu Choice</h1>
+            <div class="form-group row">
+                <div class="">
+                    <input ng-model="nidCtrl.searchTerm" type="text" placeholder="search term" class="form-control">
+                </div>
+                <div class="narrow-button">
+                    <button ng-click="nidCtrl.getMatchedMenuItems();" class="btn btn-primary">Narrow It Down For Me!</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                {{nidCtrl.message}}
+            </div>
+            <!-- found-items should be implemented as a component  found-items="...." on-remove="...." -->
+            <div class="form-group row">
+                <found-items found-items="nidCtrl.found" on-remove="nidCtrl.removeItem(index);"></found-items>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
