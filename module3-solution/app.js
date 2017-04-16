@@ -25,11 +25,11 @@
     nidCtrl.message = "";
 
     nidCtrl.getMatchedMenuItems = function() {
+      nidCtrl.message = ""; // reset the message on every click
+
       if (nidCtrl.searchTerm.length === 0 ) {
         nidCtrl.message = "Please enter a search term";
         return;
-      }else {
-        nidCtrl.message = "";
       }
 
       MenuSearchService.getMatchedMenuItems(nidCtrl.searchTerm)
