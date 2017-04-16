@@ -28,7 +28,7 @@
       nidCtrl.message = ""; // reset the message on every click
 
       if (nidCtrl.searchTerm.length === 0 ) {
-        nidCtrl.message = "Please enter a search term";
+        nidCtrl.message = "Nothing found. Please enter a search term.";
         return;
       }
 
@@ -60,7 +60,7 @@
         var menuItems = result.data.menu_items;
         var matchedItems = [];
         for (var i=0; i < menuItems.length; i++) {
-          var item = menuItems[i].name.toLowerCase();
+          var item = menuItems[i].description.toLowerCase();
           if (item.indexOf(searchTerm.toLowerCase()) >= 0){
             matchedItems.push(menuItems[i]);
           }
