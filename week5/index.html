@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>Week 5</title>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body ng-app="MyApp">
+  <h1>Forms</h1>
+  <div ng-controller="FormController as formCtrl">
+    <form name="Form" novalidate>
+      <input type="text" name="name" placeholder="Name"
+      ng-model="formCtrl.name"
+      required
+      minlength="4"
+      ng-maxlength="10">
+      {{ formCtrl.name }}
+    </form>
+    <span
+    ng-if="(Form.name.$error.minlength ||
+    Form.name.$error.required) && Form.name.$touched">
+      Name must be at least 4 characters long
+    </span>
+  </div>
+  <script src="lib/angular.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
