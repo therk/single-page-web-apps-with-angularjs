@@ -21,6 +21,10 @@
     Form.name.$error.required) && Form.name.$touched">
       Name must be at least 4 characters long
     </span>
+    <div ng-if="formCtrl.errorMessage">
+      <br />
+      {{formCtrl.errorMessage}}
+    </div>
   </div>
   <script src="lib/angular.min.js"></script>
   <script src="src/app.js"></script>

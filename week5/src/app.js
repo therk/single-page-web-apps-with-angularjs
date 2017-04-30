@@ -8,8 +8,14 @@
   function FormController(MyService) {
     var ctrl = this;
     ctrl.name = "";
+    ctrl.errorMessage = "";
     ctrl.doSomething = function () {
-      ctrl.name = ctrl.name + MyService.getSomething();
+      try {
+        ctrl.name = MyService.getSomething(ctrl.name);
+      } catch(err) {
+        ctrl.errorMessage = err.message;
+      }
+
     };
   }
 
