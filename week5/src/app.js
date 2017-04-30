@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('MyApp', [])
-  .controller('FormController', FormController);
+  .controller('FormController', FormController)
+  .directive('itemList', ItemList);
 
   FormController.$inject = ['MyService'];
   function FormController(MyService) {
@@ -15,8 +16,17 @@
       } catch(err) {
         ctrl.errorMessage = err.message;
       }
-
     };
+  };
+
+  function ItemList() {
+    return {
+      templateUrl: 'src/itemList.html',
+      scope: {
+        list: '=myList',
+        title: '@title'
+      }
+    }
   }
 
 })();
