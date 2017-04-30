@@ -2,16 +2,14 @@ describe('ItemList component', function () {
   var $compiler;
   var $rootScope;
 
-  var expectedHtml = '<h1 class="ng-binding"> test </h1>\
-<!-- ngRepeat: item in list.items --><ul ng-repeat="item in list.items" class="ng-scope">\
-  <li class="ng-binding">\
+  var expectedHtml = '<h1 class="ng-binding"> test </h1>
+<ul>\
+  <!-- ngRepeat: item in list.items --><li ng-repeat="item in list.items" class="ng-binding ng-scope">\
     item1\
-  </li>\
-</ul><!-- end ngRepeat: item in list.items --><ul ng-repeat="item in list.items" class="ng-scope">\
-  <li class="ng-binding">\
+  </li><!-- end ngRepeat: item in list.items --><li ng-repeat="item in list.items" class="ng-binding ng-scope">\
     item2\
-  </li>\
-</ul><!-- end ngRepeat: item in list.items -->'.replace(/\s/g, ''); // removes spaces
+  </li><!-- end ngRepeat: item in list.items -->\
+</ul>'.replace(/\s/g, ''); // removes spaces
 
   beforeEach(module('MyApp'));
 
