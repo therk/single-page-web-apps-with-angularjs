@@ -18,8 +18,6 @@ describe("MyApp", function () {
   }));
 
   it("should throw an error", function () {
-
-    //  myController.doSomething();
       expect("Error").toBe("Error");
   })
 });
