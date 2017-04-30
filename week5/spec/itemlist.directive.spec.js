@@ -1,8 +1,8 @@
-describe('ItemList component', function () {
+describe('ItemList directive', function () {
   var $compiler;
   var $rootScope;
 
-  var expectedHtml = '<h1 class="ng-binding"> test </h1>
+  var expectedHtml = '<h1 class="ng-binding"> test </h1>\
 <ul>\
   <!-- ngRepeat: item in list.items --><li ng-repeat="item in list.items" class="ng-binding ng-scope">\
     item1\
