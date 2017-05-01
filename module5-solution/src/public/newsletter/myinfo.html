@@ -1,1 +1,20 @@
-<h1>My Info</h1>
+<div ng-if="newsletterCtrl.info.firstName">
+  <h1>My Info</h1>
+  First Name: {{newsletterCtrl.info.firstName}}
+  <br />
+  Last Name: {{newsletterCtrl.info.lastName}}
+  <br />
+  Email Address: {{newsletterCtrl.info.email}}
+  <br />
+  Phone Number: {{newsletterCtrl.info.phone}}
+  <br />
+  Menu Number: {{newsletterCtrl.info.menuNumber}}
+  <br />
+  <div class="container-fluid">
+  <menu-item menu-item="newsletterCtrl.info.menuItem"></menu-item>
+  </div>
+</div>
+
+<div ng-if="!newsletterCtrl.info.firstName">
+  Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</a>
+</div>

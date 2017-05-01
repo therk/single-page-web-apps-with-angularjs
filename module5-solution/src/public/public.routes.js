@@ -2,8 +2,15 @@
 'use strict';
 
 angular.module('public')
-.config(routeConfig);
+.config(routeConfig)
+.run(handleError);
 
+handleError.$inject = ['$rootScope'];
+function handleError($rootScope) {
+  $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error){
+    console.error(error);
+  });
+};
 /**
  * Configures the routes and views
  */

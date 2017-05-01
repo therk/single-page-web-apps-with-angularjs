@@ -1,1 +1,60 @@
-<h1>Sign Up</h1>
+<h1>Sign Up for Newsletter</h1>
+<form name="Form" novalidate>
+  <input type="text" name="firstName" placeholder="First Name"
+  ng-model="newsletterCtrl.firstName"
+  ng-minlength="1"
+  required>
+  <span class="error"
+     ng-show="(Form.firstName.$error.required || Form.firstName.$error.minlength) && Form.firstName.$touched">
+              Valid First Name is required
+  </span>
+  <br /><br />
+  <input type="text" name="lastName" placeholder="Last Name"
+  ng-model="newsletterCtrl.lastName"
+  ng-minlength="1"
+  required>
+  <span class="error"
+     ng-show="(Form.lastName.$error.required || Form.lastName.$error.minlength) && Form.lastName.$touched">
+              Valid Last Name is required
+  </span>
+  <br /><br />
+  <input type="email" name="email" placeholder="Email"
+  ng-model="newsletterCtrl.email"
+  ng-minlength="1"
+  required>
+  <span class="error"
+     ng-show="Form.email.$error.required && Form.email.$touched">
+              Email address is required
+  </span>
+  <span class="error"
+     ng-show="Form.email.$error.email">
+              Email must be valid
+  </span>
+  <br /><br />
+  <input type="text" name="phone" placeholder="Phone"
+  ng-model="newsletterCtrl.phone"
+  ng-minlength="10"
+  ng-maxlength="10"
+  required>
+  <span class="error"
+     ng-show="(Form.phone.$error.required ||
+              Form.phone.$error.number) && Form.phone.$touched" >
+              Valid phone number is required
+   </span>
+   <span class="error"
+     ng-show="((Form.phone.$error.minlength ||
+              Form.phone.$error.maxlength) &&
+              Form.phone.$dirty) ">
+              Phone number should be just 10 digits, without spaces, parenthesis, or dashes
+   </span>
+   <br /><br />
+   <input type="text" name="menuNumber" placeholder="Menu Number"
+   ng-model="newsletterCtrl.menuNumber">
+   <span ng-if="newsletterCtrl.invalidMenuNumber" class="error">
+     No such menu number exists
+   </span>
+    <br /><br />
+  <button ng-disabled="Form.$invalid" ng-click="newsletterCtrl.signup();">Submit</button>
+  <br /><br />
+  {{newsletterCtrl.message}}
+</form>
